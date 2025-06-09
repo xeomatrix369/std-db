@@ -6,5 +6,8 @@ Description: Initializes the Flask application and sets up the database connecti
 Author: Mohammed Hamza
 Date: 2025-06-09
 """
-print ("let's begin")
-#this comment is to test the git commit
+import pandas as pd
+
+df = pd.read_excel("students.xlsx")
+
+print(df.to_string())
