@@ -1,0 +1,8 @@
+Query: list all email ids SQL: SELECT Email FROM students; Results: None 
+Query: print email id SQL: SELECT Email FROM students; Results: ('alice.johnson@example.com',)
+('bob.smith@example.com',)
+('alice.johnson@example.com',)
+('charlie.brown@example.com',)
+('bob.smith@example.com',) 
+Query: print all emails SQL: SELECT Email 
+FROM students; Results: ('alice.johnson@example.com',);('bob.smith@example.com',);('alice.johnson@example.com',);('charlie.brown@example.com',);('bob.smith@example.com',); 
