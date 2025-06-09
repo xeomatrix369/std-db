@@ -32,6 +32,27 @@ def query_llm(natural_language_query):
     sql = response.json().get("response", "")
     return sql.strip()
 
+#filer the llm response to get only sql query
+def extract_sql_only(response_text):
+    response_text = response_text.strip()
+
+    # Find the first occurrence of SELECT (or other SQL keywords)
+    keywords = ["select", "insert", "update", "delete"]
+    start = -1
+    for keyword in keywords:
+        idx = response_text.lower().find(keyword)
+        if idx != -1:
+            start = idx
+            break
+
+    # index of the first semicolon
+    end = response_text.find(";", start)
+    if start != -1 and end != -1:
+        return response_text[start:end+1].strip()
+
+    # redundancy: return nothing or raw string
+    return response_text.strip()
+
 # Fetching from sql
 def fetch_sql(engine, sql):
     try:
@@ -53,6 +74,7 @@ def chat_loop(engine):
         # user_input = user_input.strip()
         prompt = f"""You are an assistant that converts natural language into SQL queries.Use the following table: `students`Columns are: Name, CGPA, Location, Email, Phone Number, Preferred Work Location, Specialization in degree Natural Language Query: \"{user_input}\"Respond with just the SQL query, nothing else."""
         sql = query_llm(prompt) 
+        sql = extract_sql_only(sql)
         print("SQL Generated:", sql)
         fetch_sql(engine, user_input)
 
