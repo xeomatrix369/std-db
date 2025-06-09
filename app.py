@@ -44,10 +44,10 @@ def fetch_sql(engine, sql):
 def chat_loop(engine):
     print("Type your query (or 'exit' to quit):")
     while True:
-        user_input = input("You: ")
+        user_input = input("You: ") + " the file being students.db just give me the sql query for it"
         if user_input.lower() in ["exit", "quit"]:
             break
-        sql = query_llm(user_input)
+        sql = query_llm(user_input) 
         print("SQL Generated:", sql)
         fetch_sql(engine, sql)
 
