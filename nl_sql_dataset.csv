@@ -1,0 +1,101 @@
+nl_query,sql
+Students whose CGPA is equal to 6.1,SELECT * FROM students WHERE CGPA = 6.1
+Students whose CGPA is equal to 8.9,SELECT * FROM students WHERE CGPA = 8.9
+Get emails of students who prefer working in Delhi,SELECT Email FROM students WHERE Preferred_Work_Location = 'Delhi'
+Get emails of students who prefer working in Delhi,SELECT Email FROM students WHERE Preferred_Work_Location = 'Delhi'
+Show students from Bangalore,SELECT * FROM students WHERE Location = 'Bangalore'
+Names of students preferring Delhi and CGPA > 7.4,SELECT Name FROM students WHERE Preferred_Work_Location = 'Delhi' AND CGPA > 7.4
+Show students from Delhi,SELECT * FROM students WHERE Location = 'Delhi'
+Emails of students from Bangalore with CGPA over 6.4,SELECT Email FROM students WHERE Location = 'Bangalore' AND CGPA > 6.4
+List all students specializing in Electronics,SELECT * FROM students WHERE Specialization_in_degree = 'Electronics'
+List all students specializing in Electronics,SELECT * FROM students WHERE Specialization_in_degree = 'Electronics'
+Students with CGPA above 6.4,SELECT * FROM students WHERE CGPA > 6.4
+Names of students preferring Bangalore and CGPA > 6.1,SELECT Name FROM students WHERE Preferred_Work_Location = 'Bangalore' AND CGPA > 6.1
+List students with CGPA less than 6.4,SELECT * FROM students WHERE CGPA < 6.4
+Show students from Delhi,SELECT * FROM students WHERE Location = 'Delhi'
+Students with CGPA above 6.1,SELECT * FROM students WHERE CGPA > 6.1
+List all students specializing in Computer Science,SELECT * FROM students WHERE Specialization_in_degree = 'Computer Science'
+Students whose CGPA is equal to 6.4,SELECT * FROM students WHERE CGPA = 6.4
+List students with CGPA less than 6.1,SELECT * FROM students WHERE CGPA < 6.1
+List all students specializing in Electronics,SELECT * FROM students WHERE Specialization_in_degree = 'Electronics'
+Get emails of students who prefer working in Mumbai,SELECT Email FROM students WHERE Preferred_Work_Location = 'Mumbai'
+Names of students preferring Mumbai and CGPA > 7.7,SELECT Name FROM students WHERE Preferred_Work_Location = 'Mumbai' AND CGPA > 7.7
+Names of students preferring Bangalore and CGPA > 6.4,SELECT Name FROM students WHERE Preferred_Work_Location = 'Bangalore' AND CGPA > 6.4
+Emails of students from Delhi with CGPA over 8.5,SELECT Email FROM students WHERE Location = 'Delhi' AND CGPA > 8.5
+List all students specializing in Computer Science,SELECT * FROM students WHERE Specialization_in_degree = 'Computer Science'
+Phone numbers of students in Bangalore,SELECT Phone_Number FROM students WHERE Location = 'Bangalore'
+Show students from Mumbai,SELECT * FROM students WHERE Location = 'Mumbai'
+List students with CGPA less than 9.8,SELECT * FROM students WHERE CGPA < 9.8
+Students whose CGPA is equal to 8.8,SELECT * FROM students WHERE CGPA = 8.8
+Students whose CGPA is equal to 7.7,SELECT * FROM students WHERE CGPA = 7.7
+Get emails of students who prefer working in Mumbai,SELECT Email FROM students WHERE Preferred_Work_Location = 'Mumbai'
+Names of students preferring Bangalore and CGPA > 8.8,SELECT Name FROM students WHERE Preferred_Work_Location = 'Bangalore' AND CGPA > 8.8
+Phone numbers of students in Mumbai,SELECT Phone_Number FROM students WHERE Location = 'Mumbai'
+List students with CGPA less than 9.6,SELECT * FROM students WHERE CGPA < 9.6
+Names of students preferring Delhi and CGPA > 6.8,SELECT Name FROM students WHERE Preferred_Work_Location = 'Delhi' AND CGPA > 6.8
+List students with CGPA less than 8.3,SELECT * FROM students WHERE CGPA < 8.3
+Phone numbers of students in Mumbai,SELECT Phone_Number FROM students WHERE Location = 'Mumbai'
+Names of students preferring Delhi and CGPA > 8.5,SELECT Name FROM students WHERE Preferred_Work_Location = 'Delhi' AND CGPA > 8.5
+Emails of students from Delhi with CGPA over 9.8,SELECT Email FROM students WHERE Location = 'Delhi' AND CGPA > 9.8
+Names of students preferring Mumbai and CGPA > 6.6,SELECT Name FROM students WHERE Preferred_Work_Location = 'Mumbai' AND CGPA > 6.6
+Show students from Mumbai,SELECT * FROM students WHERE Location = 'Mumbai'
+Specialization of students with name Alice Johnson,SELECT Specialization_in_degree FROM students WHERE Name = 'Alice Johnson'
+Students whose CGPA is equal to 7.4,SELECT * FROM students WHERE CGPA = 7.4
+Get emails of students who prefer working in Mumbai,SELECT Email FROM students WHERE Preferred_Work_Location = 'Mumbai'
+Show students from Mumbai,SELECT * FROM students WHERE Location = 'Mumbai'
+Students with CGPA above 9.3,SELECT * FROM students WHERE CGPA > 9.3
+Specialization of students with name Alice Johnson,SELECT Specialization_in_degree FROM students WHERE Name = 'Alice Johnson'
+Students whose CGPA is equal to 6.4,SELECT * FROM students WHERE CGPA = 6.4
+List students with CGPA less than 9.8,SELECT * FROM students WHERE CGPA < 9.8
+List all students specializing in Electronics,SELECT * FROM students WHERE Specialization_in_degree = 'Electronics'
+Show students from Delhi,SELECT * FROM students WHERE Location = 'Delhi'
+List all students specializing in Electronics,SELECT * FROM students WHERE Specialization_in_degree = 'Electronics'
+Specialization of students with name Bob Smith,SELECT Specialization_in_degree FROM students WHERE Name = 'Bob Smith'
+Names of students preferring Bangalore and CGPA > 8.9,SELECT Name FROM students WHERE Preferred_Work_Location = 'Bangalore' AND CGPA > 8.9
+List all students specializing in Information Technology,SELECT * FROM students WHERE Specialization_in_degree = 'Information Technology'
+Students whose CGPA is equal to 6.9,SELECT * FROM students WHERE CGPA = 6.9
+Phone numbers of students in Bangalore,SELECT Phone_Number FROM students WHERE Location = 'Bangalore'
+Specialization of students with name Charlie Brown,SELECT Specialization_in_degree FROM students WHERE Name = 'Charlie Brown'
+Students whose CGPA is equal to 8.6,SELECT * FROM students WHERE CGPA = 8.6
+Specialization of students with name Charlie Brown,SELECT Specialization_in_degree FROM students WHERE Name = 'Charlie Brown'
+Emails of students from Bangalore with CGPA over 9.8,SELECT Email FROM students WHERE Location = 'Bangalore' AND CGPA > 9.8
+Names of students preferring Bangalore and CGPA > 6.1,SELECT Name FROM students WHERE Preferred_Work_Location = 'Bangalore' AND CGPA > 6.1
+Names of students preferring Bangalore and CGPA > 8.6,SELECT Name FROM students WHERE Preferred_Work_Location = 'Bangalore' AND CGPA > 8.6
+Emails of students from Bangalore with CGPA over 8.3,SELECT Email FROM students WHERE Location = 'Bangalore' AND CGPA > 8.3
+Specialization of students with name Alice Johnson,SELECT Specialization_in_degree FROM students WHERE Name = 'Alice Johnson'
+List all students specializing in Information Technology,SELECT * FROM students WHERE Specialization_in_degree = 'Information Technology'
+Names of students preferring Bangalore and CGPA > 7.7,SELECT Name FROM students WHERE Preferred_Work_Location = 'Bangalore' AND CGPA > 7.7
+List students with CGPA less than 8.5,SELECT * FROM students WHERE CGPA < 8.5
+Specialization of students with name Charlie Brown,SELECT Specialization_in_degree FROM students WHERE Name = 'Charlie Brown'
+List all students specializing in Computer Science,SELECT * FROM students WHERE Specialization_in_degree = 'Computer Science'
+Students whose CGPA is equal to 8.6,SELECT * FROM students WHERE CGPA = 8.6
+Students whose CGPA is equal to 8.6,SELECT * FROM students WHERE CGPA = 8.6
+Phone numbers of students in Delhi,SELECT Phone_Number FROM students WHERE Location = 'Delhi'
+Emails of students from Mumbai with CGPA over 6.5,SELECT Email FROM students WHERE Location = 'Mumbai' AND CGPA > 6.5
+Names of students preferring Delhi and CGPA > 8.8,SELECT Name FROM students WHERE Preferred_Work_Location = 'Delhi' AND CGPA > 8.8
+Students with CGPA above 6.4,SELECT * FROM students WHERE CGPA > 6.4
+Phone numbers of students in Delhi,SELECT Phone_Number FROM students WHERE Location = 'Delhi'
+Phone numbers of students in Bangalore,SELECT Phone_Number FROM students WHERE Location = 'Bangalore'
+Students whose CGPA is equal to 6.5,SELECT * FROM students WHERE CGPA = 6.5
+Students with CGPA above 6.5,SELECT * FROM students WHERE CGPA > 6.5
+List all students specializing in Computer Science,SELECT * FROM students WHERE Specialization_in_degree = 'Computer Science'
+List students with CGPA less than 6.8,SELECT * FROM students WHERE CGPA < 6.8
+List students with CGPA less than 8.3,SELECT * FROM students WHERE CGPA < 8.3
+Names of students preferring Delhi and CGPA > 8.3,SELECT Name FROM students WHERE Preferred_Work_Location = 'Delhi' AND CGPA > 8.3
+Phone numbers of students in Mumbai,SELECT Phone_Number FROM students WHERE Location = 'Mumbai'
+Emails of students from Delhi with CGPA over 6.5,SELECT Email FROM students WHERE Location = 'Delhi' AND CGPA > 6.5
+Show students from Mumbai,SELECT * FROM students WHERE Location = 'Mumbai'
+Names of students preferring Delhi and CGPA > 6.8,SELECT Name FROM students WHERE Preferred_Work_Location = 'Delhi' AND CGPA > 6.8
+List all students specializing in Computer Science,SELECT * FROM students WHERE Specialization_in_degree = 'Computer Science'
+Students with CGPA above 8.5,SELECT * FROM students WHERE CGPA > 8.5
+Emails of students from Bangalore with CGPA over 6.4,SELECT Email FROM students WHERE Location = 'Bangalore' AND CGPA > 6.4
+List all students specializing in Electronics,SELECT * FROM students WHERE Specialization_in_degree = 'Electronics'
+Phone numbers of students in Delhi,SELECT Phone_Number FROM students WHERE Location = 'Delhi'
+Specialization of students with name Bob Smith,SELECT Specialization_in_degree FROM students WHERE Name = 'Bob Smith'
+Phone numbers of students in Delhi,SELECT Phone_Number FROM students WHERE Location = 'Delhi'
+Emails of students from Bangalore with CGPA over 9.3,SELECT Email FROM students WHERE Location = 'Bangalore' AND CGPA > 9.3
+List students with CGPA less than 7.4,SELECT * FROM students WHERE CGPA < 7.4
+Show students from Bangalore,SELECT * FROM students WHERE Location = 'Bangalore'
+Names of students preferring Delhi and CGPA > 8.6,SELECT Name FROM students WHERE Preferred_Work_Location = 'Delhi' AND CGPA > 8.6
+Emails of students from Mumbai with CGPA over 6.1,SELECT Email FROM students WHERE Location = 'Mumbai' AND CGPA > 6.1
+Specialization of students with name Bob Smith,SELECT Specialization_in_degree FROM students WHERE Name = 'Bob Smith'

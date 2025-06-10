@@ -9,12 +9,149 @@ Date: 2025-06-09
 import pandas as pd
 from sqlalchemy import create_engine, text
 import requests
+from chromadb import Client, Settings
+from chromadb.utils import embedding_functions
+from sentence_transformers import SentenceTransformer
+from chromadb.utils.embedding_functions.ollama_embedding_function import (
+    OllamaEmbeddingFunction,
+)
+
+
+model_var= "qwen2.5:latest"  # Model variable for LLM
+vector_db = "sqlite:///vector_db.db"  # Path to the vector database\
+embedding_model_var = "nomic-embed-text:latest"  # Embedding model
+# df_embedding=pd.read_csv('nl_sql_dataset.csv')
+
+chroma_client = Client(Settings(persist_directory=vector_db, is_persistent=True))
+# Initialize Ollama embedding function
+ollama_ef = OllamaEmbeddingFunction(
+    url="http://172.25.60.20:11434/api/generate",
+    model_name=embedding_model_var,
+)
+
+sql_collection = chroma_client.get_or_create_collection(
+    name="sql_queries",
+    embedding_function=ollama_ef
+)
+
+def initialize_vector_db():
+    """Pre-populate vector DB with example queries if empty"""
+    if sql_collection.count() == 0:
+        # examples of assignment given
+        examples = [
+            ("List all students with a CGPA greater than 8.", "SELECT * FROM students WHERE CGPA > 8"),
+            ("What are the email address of students from Bangalore", "SELECT Email FROM students WHERE Location LIKE '%Bangalore%'"),
+            ("Show phone numbers of students preferring to work in Hyderabad with CGPA greater than 8", 
+             "SELECT Phone_Number FROM students WHERE Preferred_Work_Location LIKE '%Hyderabad%' AND CGPA > 8")
+        ]
+        # examples form dataset
+        try:
+            # Load CSV dataset
+            df = pd.read_csv('nl_sql_dataset.csv')
+            print(f"Loaded {len(df)} examples from {'nl_sql_dataset.csv'}")
+            
+            # Prepare data for vector DB
+            ids = [f"id_{i}" for i in range(len(df))]
+            documents = df['sql'].tolist()
+            metadatas = [{"nl_query": nl} for nl in df['nl_query']]
+            
+            # Add to collection
+            sql_collection.add(
+                ids=ids,
+                documents=documents,
+                metadatas=metadatas
+            )
+            print(f"Vector DB initialized with {len(df)} examples from dataset")
+        except Exception as e:
+            print(f"Error loading CSV: {str(e)}")
+            print("Initializing with default examples instead")
+        
+        print(f"Initialized vector DB with {len(examples)} examples")
+
+def build_rag_prompt(user_query: str, similar_results: list) -> str:
+    """Construct RAG prompt using user query and similar results."""
+    prompt = """You are a SQL expert. Convert questions to SQLite SQL for table 'students' with columns:
+    Name, CGPA, Location, Email, Phone_Number, Preferred_Work_Location, Specialization_of_degree
+    Rules:
+    1. Always use SELECT statements
+    2. Use LIKE for text matching (case-insensitive)
+    Recent similar queries:\n"""
+    # Add similar examples to prompt
+    for i, item in enumerate(similar_results, 1):
+        nl = item["metadatas"][0]["nl_query"]
+        sql = item["documents"][0]
+        prompt += f"{i}. Q: {nl}\n   SQL: {sql}\n"
+    
+    prompt += f"\nNew Query: {user_query}\nSQL:"
+    return prompt
+
+def query_llm(prompt: str) -> str:
+    """Send prompt to LLM and return response"""
+    payload = {
+        "model": LLM_MODEL,
+        "prompt": prompt,
+        "stream": False
+    }
+    response = requests.post(LLM_URL, json=payload)
+    return response.json().get("response", "").strip()
+
+def extract_sql(response: str) -> str:
+    """Extract SQL query from LLM response"""
+    # Find first SQL keyword
+    match = re.search(r"\b(SELECT|INSERT|UPDATE|DELETE)\b", response, re.IGNORECASE)
+    if not match:
+        return ""
+    
+    # Extract from keyword to semicolon
+    start = match.start()
+    end = response.find(";", start)
+    return response[start:end+1] if end != -1 else response[start:]
+
+def execute_sql(sql: str) -> str:
+    """Execute SQL query and return results"""
+    # Security validation
+    if not re.match(r"^SELECT\s", sql, re.IGNORECASE):
+        return "Error: Only SELECT queries allowed"
+    
+    conn = sqlite3.connect(STUDENT_DB_PATH)
+    cursor = conn.cursor()
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        return "\n".join(str(row) for row in results) if results else "No results found"
+    except Exception as e:
+        return f"SQL Error: {str(e)}"
+    finally:
+        conn.close()
+
+def add_to_vector_db(nl_query: str, sql_query: str):
+    """Store successful query in vector DB"""
+    new_id = f"id{sql_collection.count()}"
+    sql_collection.add(
+        documents=[sql_query],
+        metadatas=[{"nl_query": nl_query}],
+        ids=[new_id]
+    )
+
+# texts = [f"query: {q} text: {s}" for q, s in zip(df_embedding["nl_query"], df_embedding["sql"])]
+
+# Generate embeddings
+# embeddings = ollama_ef(["This is my first text to embed","This is my second document"])
+
+
+# #print the first few embeddings for verification
+# for i, (text, embedding) in enumerate(zip(texts, embeddings)):
+#     print(f"Text {i}: {text}")
+#     print(f"Embedding {i}: {embedding[:5]}...")  # Print first few dimensions
+#     print()
+
+
 
 # Initialize chat history
 chat_history = []
 
-model_var= "qwen2.5:latest"  # Model variable for LLM
 
+# Load data from Excel file and store it in a SQLite database   
 def load_data_to_db():
     df = pd.read_excel("students.xlsx")
     engine = create_engine("sqlite:///students.db")
@@ -68,7 +205,8 @@ def fetch_sql(engine, sql):
                 x+= str(row) + ";"
         return x.strip() if x else "No results found."
     except Exception as e:
-        print("Error running SQL:", e)
+        # print("Error running SQL:", e)
+        print("try to rephrase your query")
 
 # Chat interface loop
 def chat_loop(engine):
@@ -82,6 +220,7 @@ def chat_loop(engine):
         
         if user_input.lower() in ["exit", "quit"]:
             break
+        
         # user_input = user_input.strip()
         # prompt = f"""You are an assistant that converts natural language into SQL queries.Use the following table: `students`Columns are: Name, CGPA, Location, Email, Phone Number, Preferred Work Location, Specialization in degree Natural Language Query: \"{user_input}\"Respond with just the SQL query, nothing else."""
         prompt =  user_input
@@ -103,4 +242,6 @@ def chat_loop(engine):
 
 if __name__ == "__main__":
     engine = load_data_to_db()
+    initialize_vector_db()
+    print("\n=== Student Database  Query System ===")
     chat_loop(engine)   
