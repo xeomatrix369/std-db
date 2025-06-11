@@ -1,7 +1,7 @@
 # std-db
 A command line tool(CLT) to interact with student data excel sheets 
 
-## Sequence FLOW Diagram
+## Mermaid
 ```sequence
     User-->System: Natural Language Query
     System->>VectorDB: Find similar queries
