@@ -155,7 +155,7 @@ def load_data_to_db():
     df = pd.read_excel("students.xlsx")
     engine = create_engine("sqlite:///students.db")
     df.to_sql("students", con=engine, if_exists="replace", index=False)
-    print("Data loaded into database.")
+    print("Data loaded into database successfully.")
     return engine
 
 # Query to LLM server to convert humaninput to SQL
@@ -175,7 +175,7 @@ def query_llm(natural_language_query):
 def extract_sql_only(response_text):
     response_text = response_text.strip()
 
-    # Find the first occurrence of SELECT (or other SQL keywords)
+    # finding first occurrence of SQL keywords
     keywords = ["select", "insert", "update", "delete"]
     start = -1
     for keyword in keywords:
