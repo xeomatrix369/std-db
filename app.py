@@ -1,7 +1,8 @@
 """
 app.py
 
-Description: Initializes the Flask application and sets up the database connection.
+Description: CLT Student Database Query System
+This script provides a command-line interface for querying a student database using natural language.
 
 Author: Mohammed Hamza
 Date: 2025-06-09
