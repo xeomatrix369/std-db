@@ -6,3 +6,31 @@ Query: print email id SQL: SELECT Email FROM students; Results: ('alice.johnson@
 ('bob.smith@example.com',) 
 Query: print all emails SQL: SELECT Email 
 FROM students; Results: ('alice.johnson@example.com',);('bob.smith@example.com',);('alice.johnson@example.com',);('charlie.brown@example.com',);('bob.smith@example.com',); 
+Query: print everything SQL: SELECT Name, Email 
+FROM students 
+WHERE Location = 'California'; Results: No results found. 
+Query: print all students SQL: SELECT * FROM students; Results: ('Alice Johnson', 8.2, 'Bangalore', 'alice.johnson@example.com', 9876543210, 'Bangalore', 'Computer Science');('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology');('Alice Johnson', 8.2, 'Bangalore', 'alice.johnson@example.com', 9876543210, 'Bangalore', 'Computer Science');('Charlie Brown', 9.1, 'Delhi', 'charlie.brown@example.com', 9988776655, 'Delhi', 'Electronics');('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology'); 
+Query: kdds SQL: Sure! What would you like to do with the `students` table? Please provide a specific query or request in natural language, and I'll convert it into an SQL query for you. Results: None 
+Query: print all the data SQL: SELECT * FROM students; Results: ('Alice Johnson', 8.2, 'Bangalore', 'alice.johnson@example.com', 9876543210, 'Bangalore', 'Computer Science');('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology');('Alice Johnson', 8.2, 'Bangalore', 'alice.johnson@example.com', 9876543210, 'Bangalore', 'Computer Science');('Charlie Brown', 9.1, 'Delhi', 'charlie.brown@example.com', 9988776655, 'Delhi', 'Electronics');('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology'); 
+Query: eixt SQL: Sure! Please provide me with a natural language query, and I'll convert it into an SQL query for you using the `students` table. Results: None 
+Query: list all student data SQL: SELECT Name, CGPA, Location, Email, Phone_Number, Preferred_Work_Location, Specialization_of_degree 
+FROM students; Results: None 
+Query: print all student data SQL: SELECT * FROM students; Results: ('Alice Johnson', 8.2, 'Bangalore', 'alice.johnson@example.com', 9876543210, 'Bangalore', 'Computer Science');('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology');('Alice Johnson', 8.2, 'Bangalore', 'alice.johnson@example.com', 9876543210, 'Bangalore', 'Computer Science');('Charlie Brown', 9.1, 'Delhi', 'charlie.brown@example.com', 9988776655, 'Delhi', 'Electronics');('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology'); 
+Query: print cgpa all SQL: SELECT CGPA FROM students; Results: (8.2,);(7.9,);(8.2,);(9.1,);(7.9,); 
+Query: give me all the names SQL: SELECT Name FROM students; Results: ('Alice Johnson',);('Bob Smith',);('Alice Johnson',);('Charlie Brown',);('Bob Smith',); 
+Query: give me the name starting with Bob SQL: SELECT Name, CGPA, Location, Email, Phone_Number, Preferred_Work_Location, Specialization_of_degree
+FROM students
+WHERE Name LIKE 'Bob%'; Results: None 
+Query: give me the detail of students with name starting with Bob SQL: SELECT Name, CGPA, Location, Email, Phone_Number, Preferred_Work_Location, Specialization_of_degree
+FROM students
+WHERE Name LIKE 'Bob%'; Results: None 
+Query: print all the CGPA SQL: SELECT CGPA FROM students; Results: (8.2,);(7.9,);(8.2,);(9.1,);(7.9,); 
+Query: print average CGPA SQL: SELECT AVG(CGPA) AS Average_CGPA
+FROM students; Results: (8.26,); 
+Query: give me the student who live in Bangalore SQL: SELECT Name, Location, Email, Phone_Number, Preferred_Work_Location, Specialization_of_degree 
+FROM students 
+WHERE Location = 'Bangalore'; Results: None 
+Query: print all student data SQL: SELECT * FROM students; Results: ('Alice Johnson', 8.2, 'Bangalore', 'alice.johnson@example.com', 9876543210, 'Bangalore', 'Computer Science');('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology');('Alice Johnson', 8.2, 'Bangalore', 'alice.johnson@example.com', 9876543210, 'Bangalore', 'Computer Science');('Charlie Brown', 9.1, 'Delhi', 'charlie.brown@example.com', 9988776655, 'Delhi', 'Electronics');('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology'); 
+Query: pirnt student data with phone number starting with 91 SQL: SELECT * 
+FROM students 
+WHERE Phone_Number LIKE '91%'; Results: ('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology');('Bob Smith', 7.9, 'Mumbai', 'bob.smith@example.com', 9123456780, 'Hyderabad', 'Information Technology'); 

@@ -9,6 +9,7 @@ Date: 2025-06-09
 import pandas as pd
 from sqlalchemy import create_engine, text
 import requests
+import re
 from chromadb import Client, Settings
 from chromadb.utils import embedding_functions
 from sentence_transformers import SentenceTransformer
@@ -29,6 +30,9 @@ ollama_ef = OllamaEmbeddingFunction(
     model_name=embedding_model_var,
 )
 
+#############################################################################################
+# Vectorisation of SQL queries under development
+
 sql_collection = chroma_client.get_or_create_collection(
     name="sql_queries",
     embedding_function=ollama_ef
@@ -48,20 +52,24 @@ def initialize_vector_db():
         try:
             # Load CSV dataset
             df = pd.read_csv('nl_sql_dataset.csv')
+            print(df.columns)
+            examples.extend(zip(df['nl_query'], df['sql']))
             print(f"Loaded {len(df)} examples from {'nl_sql_dataset.csv'}")
+
+            embedding  = ollama_ef( ("List all students with a CGPA greater than 8.", "SELECT * FROM students WHERE CGPA > 8"))
             
-            # Prepare data for vector DB
-            ids = [f"id_{i}" for i in range(len(df))]
-            documents = df['sql'].tolist()
-            metadatas = [{"nl_query": nl} for nl in df['nl_query']]
+            # # Prepare data for vector DB
+            # ids = [f"id_{i}" for i in range(len(df))]
+            # documents = df['sql'].tolist()
+            # metadatas = [{"nl_query": nl} for nl in df['nl_query']]
             
-            # Add to collection
-            sql_collection.add(
-                ids=ids,
-                documents=documents,
-                metadatas=metadatas
-            )
-            print(f"Vector DB initialized with {len(df)} examples from dataset")
+            # # Add to collection
+            # sql_collection.add(
+            #     ids=ids,
+            #     documents=documents,
+            #     metadatas=metadatas
+            # )
+            # print(f"Vector DB initialized with {len(df)} examples from dataset")
         except Exception as e:
             print(f"Error loading CSV: {str(e)}")
             print("Initializing with default examples instead")
@@ -69,7 +77,7 @@ def initialize_vector_db():
         print(f"Initialized vector DB with {len(examples)} examples")
 
 def build_rag_prompt(user_query: str, similar_results: list) -> str:
-    """Construct RAG prompt using user query and similar results."""
+    """RAG prompt to be constructed."""
     prompt = """You are a SQL expert. Convert questions to SQLite SQL for table 'students' with columns:
     Name, CGPA, Location, Email, Phone_Number, Preferred_Work_Location, Specialization_of_degree
     Rules:
@@ -133,18 +141,8 @@ def add_to_vector_db(nl_query: str, sql_query: str):
         ids=[new_id]
     )
 
-# texts = [f"query: {q} text: {s}" for q, s in zip(df_embedding["nl_query"], df_embedding["sql"])]
 
-# Generate embeddings
-# embeddings = ollama_ef(["This is my first text to embed","This is my second document"])
-
-
-# #print the first few embeddings for verification
-# for i, (text, embedding) in enumerate(zip(texts, embeddings)):
-#     print(f"Text {i}: {text}")
-#     print(f"Embedding {i}: {embedding[:5]}...")  # Print first few dimensions
-#     print()
-
+#############################################################################################
 
 
 # Initialize chat history
@@ -242,6 +240,6 @@ def chat_loop(engine):
 
 if __name__ == "__main__":
     engine = load_data_to_db()
-    initialize_vector_db()
-    print("\n=== Student Database  Query System ===")
+    # initialize_vector_db() (uncomment to pre-populate vector DB) work in progress
+    print("\n<========= Student Database  Query System =========>\n")
     chat_loop(engine)   
