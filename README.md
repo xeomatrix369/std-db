@@ -1,7 +1,7 @@
 # std-db
 A command line tool(CLT) to interact with student data excel sheets 
 
-## Sequence Diagram (Mermaid)
+## Sequence Diagram
 
 ```mermaid
 sequenceDiagram
