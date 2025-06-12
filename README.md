@@ -9,7 +9,7 @@ sequenceDiagram
     participant 🧠System
     participant 📚VectorDB
     participant 🤖LLM
-    participant SQLite
+    participant 🗄️SQLite
 
     👤User->>🧠System: Natural Language Query
     🧠System->>📚VectorDB: Find similar queries
